@@ -1,0 +1,29 @@
+- 
+    var socials = [
+            {
+                'svg' : 'email-1',
+                'href' : '#'
+            },
+            {
+                'svg' : 'fb',
+                'href' : '#'
+            },
+            {
+                'svg' : 'github',
+                'href' : '#'
+            },
+            {
+                'svg' : 'instagram',
+                'href' : '#'
+            }
+        ]
+
+- 
+    var i = 0
+
+.socials
+    ul.socials__list
+        each item, href in socials
+            li(style="transform: scale(0);opacity:0" class=`socials__item socials__item-${i++}`)
+                a( href= item.href).socials__link
+                    +icon(item.svg, 'socials-icon')

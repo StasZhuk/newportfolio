@@ -1,0 +1,79 @@
+.sub-page {
+    padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 50px;
+    padding-bottom: 80px;
+
+    .nav-link {
+        padding-left: 0;
+
+        &:hover {
+            color: orange;
+            &::after {
+                width: 0;
+            }
+        }
+    }
+
+    .menu-content {
+        font-size: 24px;
+    }
+
+    .socials {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        margin-bottom: 0px;
+
+        &__link {    
+            &:hover {                
+                svg {
+                    fill: orange; 
+                }
+            }
+        }
+    }
+
+    .socials__item:first-child {
+        margin-left: 0;
+    }
+
+
+}
+
+// .projects-page {
+//     .menu-block {
+//         left: 0;
+//         right: unset;
+//         width: 300px;
+//         bottom: unset;
+//         top: -100%;
+//         padding: 30px;
+//         padding-bottom: 80px;
+//         transition: transform 1s;
+//     }
+
+//     .nav-link {
+//         padding-left: 0;
+//     }
+
+//     .menu-content {
+//         font-size: 24px;
+//     }
+
+//     .socials {
+//         position: absolute;
+//         left: 30px;
+//         bottom: 20px;
+//         margin-bottom: 0px;
+//     }
+
+//     .socials__item:first-child {
+//         margin-left: 0;
+//     }
+
+//     .menu-line {
+//         right: 0;
+//         left: unset
+//     }
+// }

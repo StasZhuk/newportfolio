@@ -1,0 +1,60 @@
+- 
+    var navMenu = [
+            {
+                'title' : 'Проекты',
+                'href' : '#',
+                'prefix' : 'projects-page',
+                'pageColor' : '#27ae60',
+                'menuLineColor' : '#f05e1f',
+                'menuBgColor' : '#fff',
+                'menuOverlayColor' : '#9357a3',
+                'menuLinkColor' : '#fff',
+            },
+            {
+                'title' : 'Обо мне',
+                'href' : '#',
+                'prefix' : 'about-page',
+                'pageColor' : 'yellow',
+                'menuLineColor' : '#27ae60',
+                'menuBgColor' : '#27ae60',
+                'menuOverlayColor' : '#fff',
+                'menuLinkColor' : '#f05e1f',
+            },
+            {
+                'title' : 'Работа',
+                'href' : '#',
+                'prefix' : 'work-page',
+                'pageColor' : 'red',
+                'menuLineColor' : '#27ae60',
+                'menuBgColor' : '#27ae60',
+                'menuOverlayColor' : '#fff',
+                'menuLinkColor' : '#f05e1f',
+            },
+            {
+                'title' : 'Мои ссылки',
+                'href' : '#',
+                'prefix' : 'links-page',
+                'pageColor' : 'blue',
+                'menuLineColor' : '#27ae60',
+                'menuBgColor' : '#27ae60',
+                'menuOverlayColor' : '#fff',
+                'menuLinkColor' : '#f05e1f',
+            }
+        ]
+
+.menu-block
+    .overlay
+    .overlay-second
+        .menu-line
+    .menu-bg-decor
+        - var i = 0
+            while i < 3
+                div(class=`square square-${i++}`)
+        - var i = 0
+            while i < 2
+                div(class=`cross cross-${i++}`)
+    ul.menu-content
+        each item, idx in navMenu 
+            li(class=`nav-item nav-item-${idx}`)
+                a(style="transform: translateY(-100%)" data-page=item.prefix data-color-page=item.pageColor data-color-menu-line=item.menuLineColor data-color-menu-link=item.menuLinkColor data-color-menu-overlay=item.menuOverlayColor href=item.href class=`nav-link nav-link-${idx}`)= item.title
+    include ./_socials-block

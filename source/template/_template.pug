@@ -5,10 +5,7 @@ doctype html
 html(lang="ru-RU")
   include common/_generals
 
-  body
-      include ./common/_header
-      
-      //- основной контент
+  body      
       block content
-
-      include ./common/_footer
+      script(src='./assets/js/foundation.js' defer)
+      script(src='./assets/js/' + url_js defer)

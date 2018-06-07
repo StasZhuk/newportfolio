@@ -30,7 +30,7 @@ $.gulp.task('default', $.gulp.series(
   $.gulp.parallel(
     'sass',
     'pug',
-    'change:url',
+    // 'change:url',
     'js:foundation',
     'js:process',
     // 'webpack',
@@ -38,7 +38,7 @@ $.gulp.task('default', $.gulp.series(
     'copy:font',
     'css:foundation',
     'sprite:svg',
-    'sprite:png'
+    // 'sprite:png'
    
   ),
   $.gulp.parallel(
