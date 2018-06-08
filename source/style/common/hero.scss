@@ -82,14 +82,14 @@ $green: #27AE60;
     top: 0;
     right: 100%;
     margin-right: 10px;
-    animation: blink-1 10s ease-in-out 6.5s infinite running;
+    animation: blink-1 10s ease-in-out 4.5s infinite running;
 }
 
 .zhuk-wrap {
     top: 100%;
     left: 0px;
     margin-top: 10px;
-    animation: blink-2 10s ease-in-out 6.8s infinite running;
+    animation: blink-2 10s ease-in-out 4.8s infinite running;
 }
 
 #skillJS,
@@ -111,7 +111,7 @@ $green: #27AE60;
     height: 100%;
     width: 3px;
     bottom: 0;
-    animation: verical-line 4s ease-in-out 6s forwards running;
+    animation: verical-line 4s ease-in-out 4s forwards running;
     transform-origin: bottom right;
     left: 100%;
     transform: rotate(90deg);
@@ -121,7 +121,7 @@ $green: #27AE60;
 .line-horizontal {
     bottom: 0;
     height: 3px;
-    animation: horizontal-line 4.7s ease-in-out 7s forwards running;
+    animation: horizontal-line 4.7s ease-in-out 5s forwards running;
 }
 
 @keyframes horizontal-line {
@@ -331,13 +331,6 @@ $green: #27AE60;
         transition: width 0.3s;
         border-radius: 3px;
 
-    }
-}
-
-@for $i from 0 through 4 {
-    .nav-link-#{$i} {
-        $delay: (1s + $i * 0.5s) + 5s;
-        // animation: slide-top 1s ease-in-out $delay forwards running;
     }
 }
 
@@ -558,16 +551,16 @@ div.menu-bg-decor {
 }
 
 .skill-name__wrap-0 {
-    animation: move-bottom 3s ease-in-out 5s forwards running;
+    animation: move-bottom 3s ease-in-out 3s forwards running;
 }
 
 .skill-name__wrap-1 {
     margin-left: -30px;
-    animation: move-right 3s ease-in-out 5s forwards running;
+    animation: move-right 3s ease-in-out 3s forwards running;
 }
 
 .skill-name__wrap-2 {
-    animation: move-top 3s ease-in-out 5s forwards running;
+    animation: move-top 3s ease-in-out 3s forwards running;
 }
 
 .skill-name {
@@ -575,15 +568,15 @@ div.menu-bg-decor {
 }
 
 .skill-name-0 {
-    animation: slide-right 1s ease-in-out 2.5s forwards running;
+    animation: slide-right 1s ease-in-out 0.5s forwards running;
 }
 
 .skill-name-1 {
-    animation: slide-left 1s ease-in-out 3s forwards running;
+    animation: slide-left 1s ease-in-out 1s forwards running;
 }
 
 .skill-name-2 {
-    animation: slide-right 1s ease-in-out 3.5s forwards running;
+    animation: slide-right 1s ease-in-out 1.5s forwards running;
 }
 
 .skill-descr {

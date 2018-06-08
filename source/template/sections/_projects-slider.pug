@@ -1,37 +1,30 @@
 .slider-block(style="transform:translateY(100%)") 
     ul.slider-block__slides-content
         .project-item__content
-            .project-item__num-wrap
-                .project-item__num Проект 1
-            .project-item__descr-wrap
-                h2.project-item__title dolor sit amet consectetur adipisicing
-                p.project-item__descr Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt. 
+            .project-item__content-first.slider-content-animate.active
+                .project-item__num-wrap
+                    .project-item__num Проект 
+                        span.project-item__id 1
+                .project-item__descr-wrap
+                    h2.project-item__title dolor sit amet consectetur adipisicing
+                    p.project-item__descr Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt. 
+            .project-item__content-second.slider-content-animate.leave
+                .project-item__num-wrap
+                    .project-item__num Проект 
+                        span.project-item__id 2
+                .project-item__descr-wrap
+                    h2.project-item__title dolor sit amet consectetur adipisicing
+                    p.project-item__descr Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt. 
     .slider-block__wrap(style="transform:scale(1)") 
         .slider-block__path-wrap
             .slider-block__path
             .slider-block__path
         ul.slider-block__slides
-            li.slider-slide
+            li.slider-slide.slide-first.active
                 .project-item__wrap
                     .project-item.item-1
-                        img(src="http://via.placeholder.com/350x150")
-            li.slider-slide
+                        img(src="http://placeimg.com/640/480/tech" alt="Превью проекта")
+            li.slider-slide.slide-second.leave
                 .project-item__wrap
                     .project-item.item-2
-                        img(src="http://via.placeholder.com/350x150")
-            li.slider-slide
-                .project-item__wrap
-                    .project-item.item-3
-                        img(src="http://via.placeholder.com/350x150")
-            li.slider-slide
-                .project-item__wrap
-                    .project-item.item-4
-                        img(src="http://via.placeholder.com/350x150")
-            li.slider-slide
-                .project-item__wrap
-                    .project-item.item-5
-                        img(src="http://via.placeholder.com/350x150")
-            li.slider-slide
-                .project-item__wrap
-                    .project-item.item-6
-                        img(src="http://via.placeholder.com/350x150")
+                        img(src="" alt="Превью проекта")

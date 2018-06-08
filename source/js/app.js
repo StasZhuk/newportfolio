@@ -1,185 +1,80 @@
-window.addEventListener('load', () => {
-  const parallaxContainer = document.body;
-  const linesBlock = document.querySelector('.lines-block');
-  const menuMain = document.querySelector('.menu-block');
-  const menuLinks = document.querySelectorAll('.nav-link');
-  const overlaySecond = document.querySelector('.overlay-second');
-  const overlay = document.querySelector('.overlay');
-  const menuLine = document.querySelector('.menu-line');
-  const menuDecorBlock = document.querySelector('.menu-bg-decor');
-  const pagesClass = [
-    'first-page',
-    'projects-page',
-    'about-page',
-    'links-page',
-    'work-page',
-  ];
-  const colors = {
-    ORANGE: '#f05e1f',
-    GREEN: '#27ae60',
-    PINK: '#9357a3',
-  }
-  let moveLayers;
-  const page = document.querySelector('.page');
-  let pagePref,
-  pageColor,
-  menuLineColor,
-  menuLinkColor,
-  menuOverlayColor;
+const parallaxContainer = document.body;
+const linesBlock = document.querySelector('.lines-block');
+const menuMain = document.querySelector('.menu-block');
+const menuLinks = document.querySelectorAll('.nav-link');
+const overlaySecond = document.querySelector('.overlay-second');
+const overlay = document.querySelector('.overlay');
+const menuLine = document.querySelector('.menu-line');
+const menuDecorBlock = document.querySelector('.menu-bg-decor');
 
-  // svg drawing
-  let stasDrawing = anime({
-    targets: '#stas path',
-    strokeDashoffset: [anime.setDashoffset, 0],
-    easing: 'easeInOutSine',
-    duration: 25000,
-    delay: 8200,
-    direction: 'alternate',
-    opacity: 1,
-    loop: false
-  });
-    
-  let zhukDrawing = anime({
-    targets: '#zhuk path',
-    strokeDashoffset: [anime.setDashoffset, 0],
-    easing: 'easeInOutSine',
-    duration: 25000,
-    delay: 8200,
-    direction: 'alternate',
-    loop: false
-  });
-    
-  let skillJSDrawing = anime({
-    targets: '#skillJS path',
-    strokeDashoffset: [anime.setDashoffset, 0],
-    easing: 'easeInOutSine',
-    duration: 5000,
-    delay: 8200,
-    direction: 'alternate',
-    loop: false
-  });
-  
-  let skillFigma = anime({
-    targets: '#skillFigma path',
-    strokeDashoffset: [anime.setDashoffset, 0],
-    easing: 'easeInOutSine',
-    duration: 5000,
-    delay: 8200,
-    direction: 'alternate',
-    loop: false
-  });
+const pagesClass = [
+  'first-page',
+  'projects-page',
+  'about-page',
+  'links-page',
+  'work-page',
+];
 
-  // activate paralax first page
-  activateLayers('first-page');
+const colors = {
+  ORANGE: '#f05e1f',
+  GREEN: '#27ae60',
+  PINK: '#9357a3',
+}
 
-  // function activate paralax first page
-  function activateLayers() { 
-    const layersSquare = document.getElementsByClassName('square');
-    const layersCross = document.getElementsByClassName('cross'); 
-
-    moveLayers = (e) => {
-      var initialX = (window.innerWidth / 2) - e.pageX,
-          initialY = (window.innerHeight / 2) - e.pageY;
-
-      [].slice.call(layersSquare).forEach(function (layer, i) {
-        var divider = 0.007 +  i / 400,
-          positionX = initialX * divider,
-          positionY = initialY * divider,
-          bottomPosition = (window.innerHeight / 2) * divider,
-          layerStyle = layer.style,
-          transformString;
-
-          if (i % 2 === 0) {
-            transformString = 'translate3d(' + positionX + 'px ,' + positionY + 'px ,0) rotate(' + (positionX + positionX * (i + 0.01) * 0.5) + 'deg)';
-          } else {
-            transformString = 'translate3d(' + -positionX + 'px ,' + -positionY + 'px ,0) rotate(' + (-positionX - positionX * (i + 0.01) * 0.5) + 'deg)';
-          }
-
-        layerStyle.transform = transformString;
-        layerStyle.bottom = '-' + bottomPosition + 'px';
-      });
-
-      [].slice.call(layersCross).forEach(function (layer, i) {
-        var divider = 0.007 +  i / 400,
-          positionX = initialX * divider,
-          positionY = initialY * divider,
-          bottomPosition = (window.innerHeight / 2) * divider,
-          layerStyle = layer.style,
-          transformString;
-
-          if (i % 2 === 0) {
-            transformString = 'translate3d(' + positionX + 'px ,' + positionY + 'px ,0) rotate(' + (positionX + positionX * i) + 'deg)';
-          } else {
-            transformString = 'translate3d(' + -positionX + 'px ,' + -positionY + 'px ,0) rotate(' + (-positionX - positionX * i) + 'deg)';
-          }
-
-        layerStyle.transform = transformString;
-        layerStyle.bottom = '-' + bottomPosition + 'px';
-      });
+const slides = [
+  {
+    'id' : '1',
+    'title' : 'Сайт номер один',
+    'descr' : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt.',
+    'img' : {
+      'href' : 'http://placeimg.com/640/480/tech',
+      'title' : 'название проекта',
     }
-
-    var menuStartIn = anime.timeline();
-              menuStartIn
-              .add({
-                  targets: '.decor-bg-block > div',
-                  duration: 3000,
-                  opacity: '1',
-                  easing: 'linear',
-                  offset: 0,
-                  delay: function(el, i) {
-                    return i * 400;
-                  },
-                })
-              .add({
-                  targets: '.menu-bg-decor > div',
-                  duration: 3000,
-                  opacity: '1',
-                  easing: 'linear',
-                  offset: 4000,
-                  delay: function(el, i) {
-                    return i * 300;
-                  },
-                })
-                .add({
-                  targets: '.menu-block .menu-line',
-                  height: '100%',
-                  duration: 1500,
-                  easing: 'linear',
-                  offset: 0
-                })
-                .add({
-                  targets: '.menu-block .overlay',
-                  width: '100%',
-                  duration: 2500,
-                  easing: 'easeInExpo',
-                  offset: 1500
-                })
-                .add({
-                  targets: '.menu-block .nav-link',
-                  translateY: '0%',
-                  opacity: '1',
-                  duration: 600,
-                  easing: 'linear',
-                  offset: 5000,
-                  delay: function(el, i) {
-                    return i * 500;
-                  },
-                })         
-                .add({
-                  targets: '.menu-block .socials__item',
-                  scale: 1,
-                  opacity: 1,
-                  duration: 600,
-                  easing: 'linear',
-                  offset: 5000,
-                  rotateY: 0,
-                  delay: function(el, i) {
-                    return i * 500;
-                  },
-                });             
-
-    parallaxContainer.addEventListener('mousemove', moveLayers);
+  },
+  {
+    'id' : '2',
+    'title' : 'Сайт номер два',
+    'descr' : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt.',
+    'img' : {
+      'href' : 'http://placeimg.com/640/480/tech',
+      'title' : 'название проекта'
+    }
+  },
+  {
+    'id' : '3',
+    'title' : 'Сайт номер три',
+    'descr' : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt.',
+    'img' : {
+      'href' : 'http://placeimg.com/640/480/tech',
+      'title' : 'название проекта'
+    }
+  },
+  {
+    'id' : '4',
+    'title' : 'Сайт номер четыре',
+    'descr' : 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Minima id aperiam consequatur ut dignissimos, hic rem iste iure consectetur porro itaque dolor laborum veritatis aliquid natus quis repellendus debitis quae explicabo. Repudiandae repellat quisquam omnis assumenda vero alias excepturi voluptatem dolores, impedit doloremque ut tenetur velit veritatis sequi dolorem iste harum nam a eum quaerat cum saepe architecto nesciunt.',
+    'img' : {
+      'href' : 'http://placeimg.com/640/480/tech',
+      'title' : 'название проекта'
+    }
   }
+];
+
+let moveLayers;
+const page = document.querySelector('.page');
+let pagePref,
+pageColor,
+menuLineColor,
+menuLinkColor,
+menuOverlayColor;
+
+window.addEventListener('load', () => {
+  // svg drawing
+  animateSvgFirstPage()
+  // activate mousemove animation bg
+  activateLayers();
+  // function activate paralax first page
+  activateFirstPage()
 
   // links listener (activate page)
   document.body.addEventListener('click', (e) => {
@@ -193,138 +88,137 @@ window.addEventListener('load', () => {
     }
   });
 
-
   // var menuSecondSliideIn = anime.timeline();
-  let slides = document.querySelectorAll('.slider-slide');
+  let slider = document.querySelector('.slider-block');
   let sldeUpBtn = document.querySelector('.slide-up');
   let sldeDownBtn = document.querySelector('.slide-down');
-  let slidesLength = slides.length;
+  let slideFirst = document.querySelector('.slide-first');
+  let slideSecond = document.querySelector('.slide-second');
+  let slideFirstContent = document.querySelector('.project-item__content-first');
+  let slideSecondContent = document.querySelector('.project-item__content-second');
   let activeSlide = 0;
-  // links listener (activate page)
-  sldeUpBtn.addEventListener('click', (e) => {
-    console.log(activeSlide);
-    if(activeSlide === slidesLength - 1) {
-      activeSlide = 0;
 
-      var menuStart = anime.timeline();
-        menuStart
-        .add({
-            targets: '.slider-block__slides',
-            duration: 500,
-            translateY: '0%',
-            easing: 'linear',
-            offset: 0,
-            begin: function() {
-              sldeUpBtn.classList.add('active');
-              sldeUpBtn.classList.add('disabled');
-              sldeDownBtn.classList.add('disabled');
-            },
-            complete: function() {
-              sldeUpBtn.classList.remove('active')
-              sldeUpBtn.classList.remove('disabled')
-              sldeDownBtn.classList.remove('disabled')
-            }
-          })
-          .add({
-            targets: '.slider-block__path',
-            duration: 500,
-            backgroundPositionY: '0',
-            easing: 'linear',
-            offset: 0
-          });
-    } else {
+  // animate slide move in-out
+  sldeUpBtn.addEventListener('click', (e) => {
     ++activeSlide;
-    
-    var menuStartIn = anime.timeline();
-      menuStartIn
+    activeSlide = calcActiveSlide(activeSlide); // what slide next?
+    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
+
+    sldeUpBtn.classList.add('disabled');
+    sldeDownBtn.classList.add('disabled');
+
+    slideFirstContent.classList.toggle('active');
+    slideFirstContent.classList.toggle('leave');
+    slideSecondContent.classList.toggle('active');
+    slideSecondContent.classList.toggle('leave');
+
+    var pathMoveUp = anime.timeline();
+      pathMoveUp
       .add({
           targets: '.slider-block__path',
           duration: 1000,
-          backgroundPositionY: '-=100vh',
-          easing: 'linear',
-          offset: 0,
-          begin: function() {
-            sldeUpBtn.classList.add('active');
-            sldeUpBtn.classList.add('disabled');
-            sldeDownBtn.classList.add('disabled');
-          },
-          complete: function() {
-            sldeUpBtn.classList.remove('active');
-            sldeUpBtn.classList.remove('disabled');
-            sldeDownBtn.classList.remove('disabled');
-          }
-        })
-        .add({
-          targets: '.slider-block__slides',
-          duration: 1000,
-          translateY: '-=100vh',
+          backgroundPositionY: '-=300',
           easing: 'linear',
           offset: 0,
         });
+
+    if(slideFirst.classList.contains('active')) {
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.add('out-to-up');
+
+      slideSecond.classList.add('slide-pos-down');
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('in-from-down');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('out-to-up');
+        slideSecond.classList.remove('in-from-down');
+        slideSecond.classList.remove('slide-pos-down');
+
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+
+    } else {
+      slideFirst.classList.add('slide-pos-down');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.add('in-from-down');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('out-to-up');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('in-from-down');
+        slideFirst.classList.remove('slide-pos-down');
+        slideSecond.classList.remove('out-to-up');
+
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
     }
   });
-  // links listener (activate page)
-  sldeDownBtn.addEventListener('click', (e) => {
-    if(activeSlide === 0) {
-      activeSlide = slidesLength - 1;
-      let translate = activeSlide * 100 + 'vh';
 
-      var menuStart = anime.timeline();
-        menuStart
-        .add({
-            targets: '.slider-block__slides',
-            duration: 500,
-            translateY: `-${translate}`,
-            easing: 'linear',
-            offset: 0,
-            begin: function() {
-              sldeUpBtn.classList.add('disabled');
-              sldeDownBtn.classList.add('disabled');
-              sldeDownBtn.classList.add('active');
-            },
-            complete: function() {
-              sldeUpBtn.classList.remove('disabled')
-              sldeDownBtn.classList.remove('active')
-              sldeDownBtn.classList.remove('disabled')
-            }
-          })
-          .add({
-            targets: '.slider-block__path',
-            duration: 500,
-            backgroundPositionY: `-${translate}`,
-            easing: 'linear',
-            offset: 0
-          });
-    } else {
+  // animate slide move in-out
+  sldeDownBtn.addEventListener('click', (e) => {
     --activeSlide;
-    
-    var menuStartIn = anime.timeline();
-      menuStartIn
+    activeSlide = calcActiveSlide(activeSlide);
+    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
+
+    sldeUpBtn.classList.add('disabled');
+    sldeDownBtn.classList.add('disabled');
+
+    slideFirstContent.classList.toggle('active');
+    slideFirstContent.classList.toggle('leave');
+    slideSecondContent.classList.toggle('active');
+    slideSecondContent.classList.toggle('leave');
+
+    // animate sliders paths
+    var pathMoveDown = anime.timeline();
+      pathMoveDown
       .add({
           targets: '.slider-block__path',
           duration: 1000,
-          backgroundPositionY: '+=100vh',
-          easing: 'linear',
-          offset: 0,
-          begin: function() {
-            sldeUpBtn.classList.add('disabled');
-            sldeDownBtn.classList.add('disabled');
-            sldeDownBtn.classList.add('active');
-          },
-          complete: function() {
-            sldeUpBtn.classList.remove('disabled')
-            sldeDownBtn.classList.remove('disabled')
-            sldeDownBtn.classList.remove('active')
-          }
-        })
-        .add({
-          targets: '.slider-block__slides',
-          duration: 1000,
-          translateY: '+=100vh',
+          backgroundPositionY: '+=300px',
           easing: 'linear',
           offset: 0,
         });
-      }
+
+    if(slideFirst.classList.contains('active')) {
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.add('out-to-down');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('in-from-up');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('out-to-down');
+        slideSecond.classList.remove('in-from-up');
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+
+    } else {
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.add('in-from-up');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('out-to-down');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('in-from-up');
+        slideSecond.classList.remove('out-to-down');
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+    }
   });
 
   function menuSecondSlideIn() {
@@ -332,25 +226,31 @@ window.addEventListener('load', () => {
 
     menuSecondSliideIn
       .add({
-        targets: '.menu-block',
+        targets: '.menu-block', // menu
         translateY: '0%',
         duration: 0,
         easing: 'linear',
       })
       .add({
-        targets: '.skills-block',
+        targets: '.skills-block', // skills
         easing: 'easeInQuart',
-        duration: '500',
-        translateX: [{value: 130}, {value: '9000'}],
+        translateX: [{value: '150'}, {value: '9000'}],
         opacity: [{value: '0'}, {value: '0'}],
         duration: 2000,
         easing: 'linear',
-        offset: 1500,
+        offset: 500,
       })
       .add({
-        targets: '.menu-block .menu-line',
-        height: '100%',
+        targets: '.menu-block .overlay',
+        width: '100%',
         duration: 1500,
+        easing: 'linear',
+        offset: 500,
+      })
+      .add({
+        targets: '.menu-block .menu-line', 
+        height: '100%',
+        duration: 1000,
         easing: 'linear',
         offset: 1000,
         complete: function(anim) {
@@ -375,22 +275,22 @@ window.addEventListener('load', () => {
                         duration: '500',
                         translateX: '0%',
                         opacity: '1',
-                        duration: 300,
+                        duration: 200,
                         easing: 'linear',
-                        offset: 300,
+                        offset: 0,
                         delay: function(el, i) {
-                          return i * 200;
+                          return i * 100;
                           },
                       })
                       .add({
                         targets: '.menu-block .socials__link',
                         scale: 1,
                         opacity: '1',
-                        duration: 400,
+                        duration: 200,
                         easing: 'linear',
-                        offset: 2000,
+                        offset: 0,
                         delay: function(el, i) {
-                          return i * 300;
+                          return i * 100;
                         },
                       })
                       .add({
@@ -414,13 +314,6 @@ window.addEventListener('load', () => {
               })
 
         }
-      })
-      .add({
-        targets: '.menu-block .overlay',
-        width: '100%',
-        duration: 1500,
-        easing: 'linear',
-        offset: 1000,
       })
   }
 
@@ -673,4 +566,169 @@ window.addEventListener('load', () => {
     }
 });
 
+function activateFirstPage() { 
+  var menuStartIn = anime.timeline();
+    menuStartIn
+    .add({
+        targets: '.decor-bg-block > div', // bg decor elem
+        duration: 2000,
+        opacity: '1',
+        easing: 'linear',
+        offset: 0,
+        delay: function(el, i) {
+          return i * 300;
+        },
+      })
+      .add({
+        targets: '.menu-block .menu-line', // menu vertical line
+        height: '100%',
+        duration: 2000,
+        easing: 'linear',
+        offset: 0
+      })
+      .add({
+        targets: '.menu-block .overlay', // menu overlay
+        width: '100%',
+        duration: 1000,
+        easing: 'easeInExpo',
+        offset: 2000
+      })
+      .add({
+        targets: '.menu-block .nav-link', // menu nav links
+        translateY: '0%',
+        opacity: '1',
+        duration: 600,
+        easing: 'linear',
+        offset: 3000,
+        delay: function(el, i) {
+          return i * 500;
+        },
+      })         
+      .add({
+        targets: '.menu-block .socials__item', // menu social icons
+        scale: 1,
+        opacity: 1,
+        duration: 600,
+        easing: 'linear',
+        offset: 5000,
+        rotateY: 0,
+        delay: function(el, i) {
+          return i * 500;
+        },
+      });         
+}
 
+function activateLayers() { 
+  const layersSquare = document.getElementsByClassName('square');
+  const layersCross = document.getElementsByClassName('cross'); 
+
+  moveLayers = (e) => {
+    var initialX = (window.innerWidth / 2) - e.pageX,
+        initialY = (window.innerHeight / 2) - e.pageY;
+
+    [].slice.call(layersSquare).forEach(function (layer, i) {
+      var divider = 0.007 +  i / 400,
+        positionX = initialX * divider,
+        positionY = initialY * divider,
+        bottomPosition = (window.innerHeight / 2) * divider,
+        layerStyle = layer.style,
+        transformString;
+
+        if (i % 2 === 0) {
+          transformString = 'translate3d(' + positionX + 'px ,' + positionY + 'px ,0) rotate(' + (positionX + positionX * (i + 0.01) * 0.5) + 'deg)';
+        } else {
+          transformString = 'translate3d(' + -positionX + 'px ,' + -positionY + 'px ,0) rotate(' + (-positionX - positionX * (i + 0.01) * 0.5) + 'deg)';
+        }
+
+      layerStyle.transform = transformString;
+      layerStyle.bottom = '-' + bottomPosition + 'px';
+    });
+
+    [].slice.call(layersCross).forEach(function (layer, i) {
+      var divider = 0.007 +  i / 400,
+        positionX = initialX * divider,
+        positionY = initialY * divider,
+        bottomPosition = (window.innerHeight / 2) * divider,
+        layerStyle = layer.style,
+        transformString;
+
+        if (i % 2 === 0) {
+          transformString = 'translate3d(' + positionX + 'px ,' + positionY + 'px ,0) rotate(' + (positionX + positionX * i) + 'deg)';
+        } else {
+          transformString = 'translate3d(' + -positionX + 'px ,' + -positionY + 'px ,0) rotate(' + (-positionX - positionX * i) + 'deg)';
+        }
+
+      layerStyle.transform = transformString;
+      layerStyle.bottom = '-' + bottomPosition + 'px';
+    });
+  }
+        
+  parallaxContainer.addEventListener('mousemove', moveLayers);
+}
+
+function animateSvgFirstPage() {
+  let stasDrawing = anime({
+    targets: '#stas path',
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'easeInOutSine',
+    duration: 25000,
+    delay: 6200,
+    direction: 'alternate',
+    opacity: 1,
+    loop: false
+  });
+    
+  let zhukDrawing = anime({
+    targets: '#zhuk path',
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'easeInOutSine',
+    duration: 25000,
+    delay: 6200,
+    direction: 'alternate',
+    loop: false
+  });
+    
+  let skillJSDrawing = anime({
+    targets: '#skillJS path',
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'easeInOutSine',
+    duration: 5000,
+    delay: 6200,
+    direction: 'alternate',
+    loop: false
+  });
+  
+  let skillFigma = anime({
+    targets: '#skillFigma path',
+    strokeDashoffset: [anime.setDashoffset, 0],
+    easing: 'easeInOutSine',
+    duration: 5000,
+    delay: 6200,
+    direction: 'alternate',
+    loop: false
+  });
+}
+
+function changeSlideContent(slider, slide) {
+  const slideMoveIn = slider.querySelector('.slider-content-animate.leave');
+  const slideId = slideMoveIn.querySelector('.project-item__id');
+  const slideTitle = slideMoveIn.querySelector('.project-item__title');
+  const slideDescr = slideMoveIn.querySelector('.project-item__descr');
+  const slideImg = slider.querySelector('.slider-slide.leave');
+
+
+  slideId.innerHTML = slide.id;
+  slideTitle.innerHTML = slide.title;
+  slideDescr.innerHTML = slide.descr;
+  slideImg.src = slide.img.href;
+  slideImg.setAttribute('title', slide.img.title);
+}
+
+function calcActiveSlide(slideId) {
+  const slidesLength = slides.length;
+
+  if (slideId > slidesLength - 1) slideId = 0;
+  else if (slideId < 0) slideId = slidesLength - 1;
+
+  return slideId;
+}

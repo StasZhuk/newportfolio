@@ -7,6 +7,9 @@
     right: 0;
     transform: translateY(100%);
 
+    img {
+        max-width: 300px;
+    }
 
     &__path {
         width: 20px;
@@ -23,6 +26,15 @@
             width: 100px;
             transform: translateX(-50%);
             left: 50%;
+            animation: none;
+
+            &.path-move-down {
+                animation: bgMoveDown 1 ease-in-out running forwards;
+            }
+
+            &.path-move-up {
+                animation: bgMoveUp 1 ease-in-out running forwards;
+            }
         }
     }
 
@@ -30,15 +42,18 @@
         position: absolute; 
         top: 0;
         right: 0;
+        height: 100%;
         width: 50%;
         transform: scale(0);
     }
 
     &__slides {
-        position: relative;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0; 
+        bottom: 0;
+        overflow: hidden;
     }
 
     &__slides-content {
@@ -61,11 +76,6 @@
     }
 }
 
-.slider-slide {
-    position: relative;
-    height: 100vh;
-}
-
 .project-item {
     position: absolute;
     z-index: 1;
@@ -73,6 +83,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     animation: unset;
+    min-height: 400px;
+    background-color: #fff;
+    border-radius: 20px;
+    overflow: hidden;
 
     &.active {
         z-index: 10;
@@ -88,14 +102,42 @@
     }
 
     &__content {
-        display: flex;
-        flex-direction: column;
+        position: relative;
         padding: 50px;
         top: 0;
-        right: 100%;
+        right: 0%;
         width: 100%;
         height: 100%;
         color: #fff;
+        overflow: hidden;
+
+        &-first,
+        &-second {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            padding: 50px;
+            top: 0;
+            right: 0%;
+            width: 100%;
+            height: 100%;
+            color: #fff;
+            transform: translateY(0%);
+            opacity: 0;
+            animation: none;
+
+            &.active {
+                transform: translateY(0);
+                opacity: 1;
+                animation: 1s show forwards linear running; 
+            }
+
+            &.leave {
+                transform: translateY(0%);
+                opacity: 0;
+                animation: 1s hide forwards linear running; 
+            }
+        }
     }
 
     &__num {
@@ -105,20 +147,15 @@
         text-transform: uppercase;
         font-size: 50px;
         padding: 10px;
- 
-        &.active:before {
-            width: 100%;
-        }
 
         &:before {
             content: '';
             position: absolute;
             background-color: $orange;
-            width: 0;
+            right: 100%;
             top: 0;
             left: 0;
             bottom: 0;
-            transition: 0.5s width;
             z-index: -1;
         }
     }
@@ -138,5 +175,215 @@
     &__descr {
         font-size: 18px;
         line-height: 1.5;
+    }
+}
+
+.slider-slide {
+    position: absolute;
+    height: 100vh;
+    transform: translateY(-100%);
+    animation: none;
+    width: 100%;
+
+    &.active {
+        transform: translateY(0);
+    }
+}
+
+.slide-first,
+.slide-second {
+    &.leave.slide-pos-down {
+        transform: translateY(100%);
+    }
+
+    &.active.in-from-up {
+        animation: slideInFromUp 1s running linear forwards;
+    }
+
+    &.leave.out-to-down {
+        animation: slideOutToDown 1s running linear forwards;
+    }
+
+    &.active.in-from-down {
+        animation: slideInFromDown 1s running linear forwards;
+    }
+
+    &.leave.out-to-up {
+        animation: slideOutToUp 1s running linear forwards;
+    }
+}
+
+.slider-content-animate {
+    &.active {
+        .project-item__num {
+            animation: slideInFromLeft 1s linear running forwards;
+
+            &:before {
+                animation: bgShow 0.7s ease-in-out running 1s forwards;
+            }
+        }
+        
+        .project-item__title {
+            animation: slideInFromRight 1s linear running forwards;
+        }
+
+        .project-item__descr {
+            animation: slideInFromLeft 1s linear running forwards;
+        }
+    }
+
+    &.leave {
+        .project-item__num {
+            animation: slideOutToRight 1s linear running forwards;
+
+            &:before {
+                animation: bgHide 0.5s linear running forwards;
+            }
+        }
+
+        .project-item__title {
+            animation: slideOutToLeft 1s linear running forwards;
+        }
+
+        .project-item__descr {
+            animation: slideOutToRight 1s linear running forwards;
+        }
+    }
+
+}
+
+
+@keyframes slideOutToUp {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+@keyframes slideInFromDown {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideInFromUp {
+    0% {
+        transform: translateY(-100%);
+    }
+    100% {
+        transform: translateY(0%);
+    }
+}
+
+@keyframes slideOutToDown {
+    0% {
+        transform: translateY(0%);
+    }
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes slideInFromLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-50%) rotateY(-100deg);
+    }
+    1% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0%) rotateY(0);
+    }
+}
+
+@keyframes slideInFromRight {
+    0% {
+        opacity: 0;
+        transform: translateX(50%) rotateY(100deg);
+    }
+    1% {
+        opacity: 1;
+    }
+    100% {
+        transform: translateX(0%) rotateY(0);
+    }
+}
+
+@keyframes slideOutToRight {
+    0% {
+        opacity: 1;
+        transform: translateX(0%) rotateY(0);
+    }
+    99% {
+        opacity: 1;
+        transform: translateX(50%) rotateY(-100deg);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) rotateY(0);
+    }
+}
+
+@keyframes slideOutToLeft {
+    0% {
+        opacity: 1;
+        transform: translateX(0%) rotatY(0);
+    }
+    99% {
+        opacity: 1;
+        transform: translateX(-50%) rotateY(-100deg);
+    }
+    100% {
+        transform: translateX(50%);
+    }
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes hide {
+    0% {
+        opacity: 1;
+    }
+    99% {
+        opacity: 0;
+    }
+}
+
+@keyframes bgHide {
+    0% {
+        left: 0;
+        right: 0%;
+    }
+    99% {
+        left: 100%;
+        right: 0%;
+    }
+    100% {
+        left: 0;
+        right: 100%;
+    }
+}
+
+@keyframes bgShow {
+    0% {
+        left: 0;
+        right: 100%;
+    }
+    100% {
+        left: 0;
+        right: 0%;
     }
 }
