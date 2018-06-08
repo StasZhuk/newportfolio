@@ -1,0 +1,85 @@
+.author-block {
+    position: absolute;
+    width: 160px;
+    height: 45px;
+    right: 10px;
+    top: 20px;
+    pointer-events: none;
+    transform: scale(0.7);
+
+    @include phone() {
+        left: 20%;
+        transform: scale(0.5);
+    }
+}
+
+.author-block__wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.lines-block {
+    position: relative;
+    left: 20px;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    overflow: hidden;
+    animation: move-left 2s ease-in-out 2.8s forwards running;
+    transform: translate(0, 0, 0);
+}
+
+.stas-wrap,
+.zhuk-wrap {
+    position: absolute;
+    z-index: 1;
+}
+
+.stas-wrap {
+    top: 0;
+    right: 100%;
+    margin-right: 10px;
+    animation: blink-1 10s ease-in-out 4.5s infinite running;
+}
+
+.zhuk-wrap {
+    top: 100%;
+    left: 0px;
+    margin-top: 10px;
+    animation: blink-2 10s ease-in-out 4.8s infinite running;
+}
+
+#skillJS,
+#skillFigma,
+#stas,
+#zhuk{
+    animation: show 1s ease-in-out forwards running;
+    opacity: 0;
+}
+
+.line-vertical,
+.line-horizontal {
+    position: absolute;
+    background-color: $pink;
+    border-radius: 3px;
+}
+
+.line-vertical {
+    height: 100%;
+    width: 3px;
+    bottom: 0;
+    animation: verical-line 4s ease-in-out 4s forwards running;
+    transform-origin: bottom right;
+    left: 100%;
+    transform: rotate(90deg);
+    opacity: 0;
+}
+
+.line-horizontal {
+    bottom: 0;
+    height: 3px;
+    animation: horizontal-line 4.7s ease-in-out 5s forwards running;
+}

@@ -1,0 +1,111 @@
+.decor-bg-block {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    pointer-events: none;
+}
+
+.square,
+.cross {
+    position: absolute;
+    transition: transform 0.4s linear, border-radius 4s ease-in-out;
+    border: 2px solid transparent;
+    border-radius: 0%;
+    background-color: transparent;
+    opacity: 0;
+}
+
+.cross {
+    &:after,
+    &:before {
+        content: '';
+        position: absolute;
+        transform-origin: center;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 2px;
+        border: 0px solid transparent;
+        background-color: #fff;
+        border-radius: 3px;
+        transition: 5s;
+    }
+
+    &:before {
+        transform: translateY(-50%) rotate(90deg);
+    }
+}
+
+.projects-page {
+    .square {
+        border-radius: 50%;
+    }
+    .cross {
+        &:after,
+        &:before {
+            border: 2px solid #fff;
+            width: 15px;
+            height: 15px;
+            border-radius: 0;
+            background-color: transparent;
+        }
+    }
+
+    div.menu-bg-decor {
+        // @include phone() {
+        //     left: 60%;
+        // }
+    
+        .square {
+            opacity: 0;
+        }
+    
+        .cross::after,
+        .cross::before, {
+            border-color: #000;
+        }
+    }
+}
+
+.square {
+    background-color: #fff;
+}
+
+@for $i from 0 through 7 {
+    .decor-bg-block .square-#{$i} {
+        width: 5px + 1px * $i; 
+        height: 5px + 1px * $i; 
+        top: 5% + random(30) * $i;
+        left: 5% + random(90);
+        transform: translate3d(0, 0, 0);
+    }
+
+    .decor-bg-block .cross-#{$i} {
+        width: 6px + 2px * $i; 
+        height: 6px + 2px * $i; 
+        top: 5% + random(90);
+        left: 5% + random(90);
+        transform: rotate(50deg * $i);
+    }
+}
+
+@for $i from 0 through 2 {
+    $delay: 7s;
+    .menu-bg-decor .square-#{$i} {
+        width: 5px + 1px * $i; 
+        height: 5px + 1px * $i; 
+        top: 5% + random(30) * $i;
+        left: 5% + random(90);
+        transform: translate3d(0, 0, 0);
+    }
+
+    .menu-bg-decor .cross-#{$i} {
+        width: 6px + 2px * $i; 
+        height: 6px + 2px * $i; 
+        top: 5% + random(90);
+        left: 5% + random(90);
+        transform: rotate(50deg * $i);
+    }
+}

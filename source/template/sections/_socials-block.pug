@@ -1,20 +1,24 @@
 - 
     var socials = [
             {
-                'svg' : 'email-1',
-                'href' : '#'
+                'svg' : 'email',
+                'href' : 'javascript:void(0);'
             },
             {
                 'svg' : 'fb',
-                'href' : '#'
+                'href' : 'https://www.facebook.com/staniszhuk'
+            },
+            {
+                'svg' : 'vk',
+                'href' : 'https://www.vk.com/staniszhuk'
             },
             {
                 'svg' : 'github',
-                'href' : '#'
+                'href' : 'https://github.com/StasZhuk/'
             },
             {
                 'svg' : 'instagram',
-                'href' : '#'
+                'href' : 'https://www.instagram.com/staszhyk/'
             }
         ]
 
@@ -25,5 +29,5 @@
     ul.socials__list
         each item, href in socials
             li(style="transform: scale(0);opacity:0" class=`socials__item socials__item-${i++}`)
-                a( href= item.href).socials__link
+                a(href= item.href class=`socials__link ${item.svg}` target="_blank")
                     +icon(item.svg, 'socials-icon')

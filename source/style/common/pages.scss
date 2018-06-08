@@ -1,0 +1,28 @@
+.page {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    opacity: 1;
+    transition: background-color 3s;
+
+    &.active {
+        z-index: 100;
+    }
+} 
+
+.projects-page {
+    background-color: #27AE60;
+}
+.about-page {
+    background-color: yellow;
+}
+.work-page {
+    background-color: red;
+}
+.links-page {
+    background-color: blue;
+}
+
+.first-page {
+    background-color: #F05E1F;
+}

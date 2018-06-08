@@ -1,0 +1,69 @@
+.skills-block {
+    position: absolute;
+    z-index: 1;
+    left: 15%;
+    bottom: 50%;
+    color: #fff;
+    font-size: 25px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 5px;
+
+    @include phone() {
+        font-size: 16px;
+        left: unset;
+        right: 10%;
+        bottom: 52%;
+    }
+}
+
+.skill-name__wrap {
+    position: relative;
+    margin-bottom: 35px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.skill-name__wrap-0 {
+    animation: move-bottom 3s ease-in-out 3s forwards running;
+}
+
+.skill-name__wrap-1 {
+    margin-left: -30px;
+    animation: move-right 3s ease-in-out 3s forwards running;
+}
+
+.skill-name__wrap-2 {
+    animation: move-top 3s ease-in-out 3s forwards running;
+}
+
+.skill-name {
+    opacity: 0;
+}
+
+.skill-name-0 {
+    animation: slide-right 1s ease-in-out 0.5s forwards running;
+}
+
+.skill-name-1 {
+    animation: slide-left 1s ease-in-out 1s forwards running;
+}
+
+.skill-name-2 {
+    animation: slide-right 1s ease-in-out 1.5s forwards running;
+}
+
+.skill-descr {
+    position: absolute;
+}
+
+.skill-js {
+    right: 0;
+}
+
+.skill-figma {
+    right: 100%;
+    bottom: -10px;
+}

@@ -1,3 +1,7 @@
+// if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+//   document.getElementsByTagName('html')[0].style.height = window.screen.availHeight;
+// }
+
 const parallaxContainer = document.body;
 const linesBlock = document.querySelector('.lines-block');
 const menuMain = document.querySelector('.menu-block');
@@ -20,6 +24,11 @@ const colors = {
   GREEN: '#27ae60',
   PINK: '#9357a3',
 }
+
+const socials = {
+  INSTAGRAM: 'instagram',
+  EMAIL: 'email',
+};
 
 const slides = [
   {
@@ -68,6 +77,16 @@ menuLineColor,
 menuLinkColor,
 menuOverlayColor;
 
+ // var menuSecondSliideIn = anime.timeline();
+ const slider = document.querySelector('.slider-block');
+ const sldeUpBtn = document.querySelector('.slide-up');
+ const sldeDownBtn = document.querySelector('.slide-down');
+ const slideFirst = document.querySelector('.slide-first');
+ const slideSecond = document.querySelector('.slide-second');
+ const slideFirstContent = document.querySelector('.project-item__content-first');
+ const slideSecondContent = document.querySelector('.project-item__content-second');
+ let activeSlide = 0;
+
 window.addEventListener('load', () => {
   // svg drawing
   animateSvgFirstPage()
@@ -86,140 +105,31 @@ window.addEventListener('load', () => {
         activateProgectsPage();
       }
     }
-  });
 
-  // var menuSecondSliideIn = anime.timeline();
-  let slider = document.querySelector('.slider-block');
-  let sldeUpBtn = document.querySelector('.slide-up');
-  let sldeDownBtn = document.querySelector('.slide-down');
-  let slideFirst = document.querySelector('.slide-first');
-  let slideSecond = document.querySelector('.slide-second');
-  let slideFirstContent = document.querySelector('.project-item__content-first');
-  let slideSecondContent = document.querySelector('.project-item__content-second');
-  let activeSlide = 0;
+    if (e.target.tagName === 'A' && e.target.classList.contains(socials.INSTAGRAM)) {
+      if (window.innerWidth > 900) {
+        e.preventDefault();
+
+        const windowWidth =window.innerWidth / 2;
+        const windowHeight =window.innerHeight / 2;
+        const leftWindowMargin = (window.innerWidth - windowWidth) / 2;
+        const topWindowMargin = (window.innerHeight - windowHeight) / 2;
+        
+        window.open(e.target.href, '', `scrollbars=1,height=${windowHeight},width=${windowWidth},left=${leftWindowMargin},top=${topWindowMargin}`);
+      } 
+    }
+  });
 
   // animate slide move in-out
   sldeUpBtn.addEventListener('click', (e) => {
-    ++activeSlide;
-    activeSlide = calcActiveSlide(activeSlide); // what slide next?
-    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
-
-    sldeUpBtn.classList.add('disabled');
-    sldeDownBtn.classList.add('disabled');
-
-    slideFirstContent.classList.toggle('active');
-    slideFirstContent.classList.toggle('leave');
-    slideSecondContent.classList.toggle('active');
-    slideSecondContent.classList.toggle('leave');
-
-    var pathMoveUp = anime.timeline();
-      pathMoveUp
-      .add({
-          targets: '.slider-block__path',
-          duration: 1000,
-          backgroundPositionY: '-=300',
-          easing: 'linear',
-          offset: 0,
-        });
-
-    if(slideFirst.classList.contains('active')) {
-      slideFirst.classList.toggle('active');
-      slideFirst.classList.toggle('leave');
-      slideFirst.classList.add('out-to-up');
-
-      slideSecond.classList.add('slide-pos-down');
-      slideSecond.classList.toggle('active');
-      slideSecond.classList.toggle('leave');
-      slideSecond.classList.add('in-from-down');
-
-      setTimeout(() => {
-        slideFirst.classList.remove('out-to-up');
-        slideSecond.classList.remove('in-from-down');
-        slideSecond.classList.remove('slide-pos-down');
-
-        sldeUpBtn.classList.remove('disabled');
-        sldeDownBtn.classList.remove('disabled');
-      }, 1000);
-
-    } else {
-      slideFirst.classList.add('slide-pos-down');
-      slideFirst.classList.toggle('leave');
-      slideFirst.classList.toggle('active');
-      slideFirst.classList.add('in-from-down');
-
-      slideSecond.classList.toggle('active');
-      slideSecond.classList.toggle('leave');
-      slideSecond.classList.add('out-to-up');
-
-      setTimeout(() => {
-        slideFirst.classList.remove('in-from-down');
-        slideFirst.classList.remove('slide-pos-down');
-        slideSecond.classList.remove('out-to-up');
-
-        sldeUpBtn.classList.remove('disabled');
-        sldeDownBtn.classList.remove('disabled');
-      }, 1000);
-    }
+    switchSlide('UP');
   });
 
   // animate slide move in-out
   sldeDownBtn.addEventListener('click', (e) => {
-    --activeSlide;
-    activeSlide = calcActiveSlide(activeSlide);
-    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
-
-    sldeUpBtn.classList.add('disabled');
-    sldeDownBtn.classList.add('disabled');
-
-    slideFirstContent.classList.toggle('active');
-    slideFirstContent.classList.toggle('leave');
-    slideSecondContent.classList.toggle('active');
-    slideSecondContent.classList.toggle('leave');
-
-    // animate sliders paths
-    var pathMoveDown = anime.timeline();
-      pathMoveDown
-      .add({
-          targets: '.slider-block__path',
-          duration: 1000,
-          backgroundPositionY: '+=300px',
-          easing: 'linear',
-          offset: 0,
-        });
-
-    if(slideFirst.classList.contains('active')) {
-      slideFirst.classList.toggle('active');
-      slideFirst.classList.toggle('leave');
-      slideFirst.classList.add('out-to-down');
-
-      slideSecond.classList.toggle('active');
-      slideSecond.classList.toggle('leave');
-      slideSecond.classList.add('in-from-up');
-
-      setTimeout(() => {
-        slideFirst.classList.remove('out-to-down');
-        slideSecond.classList.remove('in-from-up');
-        sldeUpBtn.classList.remove('disabled');
-        sldeDownBtn.classList.remove('disabled');
-      }, 1000);
-
-    } else {
-      slideFirst.classList.toggle('leave');
-      slideFirst.classList.toggle('active');
-      slideFirst.classList.add('in-from-up');
-
-      slideSecond.classList.toggle('active');
-      slideSecond.classList.toggle('leave');
-      slideSecond.classList.add('out-to-down');
-
-      setTimeout(() => {
-        slideFirst.classList.remove('in-from-up');
-        slideSecond.classList.remove('out-to-down');
-        sldeUpBtn.classList.remove('disabled');
-        sldeDownBtn.classList.remove('disabled');
-      }, 1000);
-    }
+    switchSlide('DOWN');
   });
+});
 
   function menuSecondSlideIn() {
     var menuSecondSliideIn = anime.timeline();
@@ -436,11 +346,11 @@ window.addEventListener('load', () => {
                 .add({
                   targets: '.menu-block .socials__link',
                   scale: 0,
-                  duration: 1000,
+                  duration: 500,
                   easing: 'linear',
                   offset: 0,
                   delay: function(el, i) {
-                    return i * 150;
+                    return i * 100;
                   },
                 })
                 .add({
@@ -461,82 +371,82 @@ window.addEventListener('load', () => {
     }
   }
 
-  /* sub page menu change */ 
-  function changeMenu(targetLink) {
-    if(document.body.dataset) {
-      let data = targetLink.dataset;
+/* sub page menu change */ 
+function changeMenu(targetLink) {
+  if(document.body.dataset) {
+    let data = targetLink.dataset;
 
-      pagePref = targetLink.dataset.page;
-      pageColor = targetLink.dataset.colorPage;
-      menuOverlayColor = targetLink.dataset.colorMenuOverlay;
-      menuLineColor = targetLink.dataset.colorMenuLine;
-      menuLinkColor = targetLink.dataset.colorMenuLink;
-    } else {
-      pagePref = targetLink.getAttribute('data-page');
-      pageColor = targetLink.getAttribute('data-color-page');
-      menuOverlayColor = targetLink.getAttribute('data-color-menu-overlay');
-      menuLineColor = targetLink.getAttribute('data-color-menu-line');
-      menuLinkColor = targetLink.getAttribute('data-color-menu-link');
-    }
-
-      for(var i = 0; i < pagesClass.length; i++) {
-        let pageClass = pagesClass[i];
-
-        if (page.classList.contains(pageClass)) {
-          page.classList.remove(pageClass);
-          page.classList.add(pagePref);
-          menuLine.style.backgroundColor = menuLineColor;
-          menuMain.classList.add(pagePref);
-
-          var menuChange = anime.timeline();
-            menuChange
-              .add({
-                targets: '.menu-block .menu-line',
-                translateX: '0px',
-                easing: 'easeInQuart',
-                duration: '500',
-                offset: 500,
-              })
-              .add({
-                targets: '.menu-block .overlay-second',
-                left: '-100%',
-                easing: 'easeInExpo',
-                duration: '800',
-                offset: 500,
-                complete: function(anim) {
-                  overlaySecond.style.backgroundColor = menuOverlayColor;
-
-                  var lineMove2 = anime.timeline();
-                    lineMove2
-                    .add({
-                      targets: '.menu-block .menu-line',
-                      translateX: '-7px',
-                      easing: 'easeInQuart',
-                      duration: '500',
-                      offset: 0,
-                    })
-                    .add({
-                      targets: '.menu-block .overlay-second',
-                      left: '0%',
-                      easing: 'easeOutExpo',
-                      duration: '800',
-                      offset: 500,
-                    })
-              }
-            })
-            .add({
-              targets: '.menu-block .overlay',
-              width: '100%',
-              duration: 1500,
-              easing: 'linear',
-              offset: 1000,
-            })
-        }
-    }
+    pagePref = targetLink.dataset.page;
+    pageColor = targetLink.dataset.colorPage;
+    menuOverlayColor = targetLink.dataset.colorMenuOverlay;
+    menuLineColor = targetLink.dataset.colorMenuLine;
+    menuLinkColor = targetLink.dataset.colorMenuLink;
+  } else {
+    pagePref = targetLink.getAttribute('data-page');
+    pageColor = targetLink.getAttribute('data-color-page');
+    menuOverlayColor = targetLink.getAttribute('data-color-menu-overlay');
+    menuLineColor = targetLink.getAttribute('data-color-menu-line');
+    menuLinkColor = targetLink.getAttribute('data-color-menu-link');
   }
 
-  /* projects page content activate */ 
-  function projectPageActivateContent(targetLink) {
+    for(var i = 0; i < pagesClass.length; i++) {
+      let pageClass = pagesClass[i];
+
+      if (page.classList.contains(pageClass)) {
+        page.classList.remove(pageClass);
+        page.classList.add(pagePref);
+        menuLine.style.backgroundColor = menuLineColor;
+        menuMain.classList.add(pagePref);
+
+        var menuChange = anime.timeline();
+          menuChange
+            .add({
+              targets: '.menu-block .menu-line',
+              translateX: '0px',
+              easing: 'easeInQuart',
+              duration: '500',
+              offset: 500,
+            })
+            .add({
+              targets: '.menu-block .overlay-second',
+              left: '-100%',
+              easing: 'easeInExpo',
+              duration: '800',
+              offset: 500,
+              complete: function(anim) {
+                overlaySecond.style.backgroundColor = menuOverlayColor;
+
+                var lineMove2 = anime.timeline();
+                  lineMove2
+                  .add({
+                    targets: '.menu-block .menu-line',
+                    translateX: '-7px',
+                    easing: 'easeInQuart',
+                    duration: '500',
+                    offset: 0,
+                  })
+                  .add({
+                    targets: '.menu-block .overlay-second',
+                    left: '0%',
+                    easing: 'easeOutExpo',
+                    duration: '800',
+                    offset: 500,
+                  })
+            }
+          })
+          .add({
+            targets: '.menu-block .overlay',
+            width: '100%',
+            duration: 1500,
+            easing: 'linear',
+            offset: 1000,
+          })
+      }
+  }
+}
+
+/* projects page content activate */ 
+function projectPageActivateContent(targetLink) {
       var menuChange = anime.timeline();
         menuChange
           .add({
@@ -564,7 +474,7 @@ window.addEventListener('load', () => {
             }
         });
     }
-});
+
 
 function activateFirstPage() { 
   var menuStartIn = anime.timeline();
@@ -611,11 +521,10 @@ function activateFirstPage() {
         duration: 600,
         easing: 'linear',
         offset: 5000,
-        rotateY: 0,
         delay: function(el, i) {
-          return i * 500;
+          return i * 350;
         },
-      });         
+      });        
 }
 
 function activateLayers() { 
@@ -709,12 +618,133 @@ function animateSvgFirstPage() {
   });
 }
 
+function switchSlide(direction) {
+  if (direction === 'UP') {
+    ++activeSlide;
+    activeSlide = calcActiveSlide(activeSlide); // what slide next?
+    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
+
+    sldeUpBtn.classList.add('disabled');
+    sldeDownBtn.classList.add('disabled');
+
+    slideFirstContent.classList.toggle('active');
+    slideFirstContent.classList.toggle('leave');
+    slideSecondContent.classList.toggle('active');
+    slideSecondContent.classList.toggle('leave');
+
+    var pathMoveUp = anime.timeline();
+      pathMoveUp
+      .add({
+          targets: '.slider-block__path',
+          duration: 1000,
+          backgroundPositionY: '-=300',
+          easing: 'linear',
+          offset: 0,
+        });
+
+    if(slideFirst.classList.contains('active')) {
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.add('out-to-up');
+
+      slideSecond.classList.add('slide-pos-down');
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('in-from-down');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('out-to-up');
+        slideSecond.classList.remove('in-from-down');
+        slideSecond.classList.remove('slide-pos-down');
+
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+
+    } else {
+      slideFirst.classList.add('slide-pos-down');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.add('in-from-down');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('out-to-up');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('in-from-down');
+        slideFirst.classList.remove('slide-pos-down');
+        slideSecond.classList.remove('out-to-up');
+
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+    }
+  } else {
+    --activeSlide;
+    activeSlide = calcActiveSlide(activeSlide);
+    changeSlideContent(slider, slides[activeSlide]) // insert content in next slide
+
+    sldeUpBtn.classList.add('disabled');
+    sldeDownBtn.classList.add('disabled');
+
+    slideFirstContent.classList.toggle('active');
+    slideFirstContent.classList.toggle('leave');
+    slideSecondContent.classList.toggle('active');
+    slideSecondContent.classList.toggle('leave');
+
+    // animate sliders paths
+    var pathMoveDown = anime.timeline();
+      pathMoveDown
+      .add({
+          targets: '.slider-block__path',
+          duration: 1000,
+          backgroundPositionY: '+=300px',
+          easing: 'linear',
+          offset: 0,
+        });
+
+    if(slideFirst.classList.contains('active')) {
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.add('out-to-down');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('in-from-up');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('out-to-down');
+        slideSecond.classList.remove('in-from-up');
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+
+    } else {
+      slideFirst.classList.toggle('leave');
+      slideFirst.classList.toggle('active');
+      slideFirst.classList.add('in-from-up');
+
+      slideSecond.classList.toggle('active');
+      slideSecond.classList.toggle('leave');
+      slideSecond.classList.add('out-to-down');
+
+      setTimeout(() => {
+        slideFirst.classList.remove('in-from-up');
+        slideSecond.classList.remove('out-to-down');
+        sldeUpBtn.classList.remove('disabled');
+        sldeDownBtn.classList.remove('disabled');
+      }, 1000);
+    }
+  }
+}
+
 function changeSlideContent(slider, slide) {
   const slideMoveIn = slider.querySelector('.slider-content-animate.leave');
   const slideId = slideMoveIn.querySelector('.project-item__id');
   const slideTitle = slideMoveIn.querySelector('.project-item__title');
   const slideDescr = slideMoveIn.querySelector('.project-item__descr');
-  const slideImg = slider.querySelector('.slider-slide.leave');
+  const slideImg = slider.querySelector('.slider-slide.leave img');
 
 
   slideId.innerHTML = slide.id;
