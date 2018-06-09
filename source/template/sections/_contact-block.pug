@@ -1,0 +1,22 @@
+.contact-block
+    a(href="javascript:void(0)").toggle-form.side-line.side-line--left
+        .side-line__text 
+            span Напиcать
+            span мне
+
+    .contact-block__wrap
+        form#contact-form.contact-form
+            .input__wrap
+                input(type="text" name="name").input.input-js
+                .input__label 
+                    span Введите имя
+            .input__wrap
+                input(type="mail" name="mail").input.input-js
+                .input__label
+                    span Введите почту
+            .input__wrap.input__wrap--textarea
+                textarea(cols="30", rows="10").textarea.input-js
+                .input__label
+                    span Введите сообщение
+            .input__wrap.input__wrap--button
+                input(type="submit" name="submit" value="отправить").input-submit

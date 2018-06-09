@@ -62,10 +62,15 @@ a {
 
 input,
 select,
-button {
-    outline: none;
+button,
+textarea {
+    font-family: $main-font;
     border: none;
     background-color: transparent;
+
+    &:focus {
+        outline: none;
+    }
 }
 
 textarea {

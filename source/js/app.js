@@ -28,6 +28,7 @@ const colors = {
 const socials = {
   INSTAGRAM: 'instagram',
   EMAIL: 'email',
+  FORM: 'toggle-form',
 };
 
 const slides = [
@@ -88,6 +89,8 @@ menuOverlayColor;
  let activeSlide = 0;
 
 window.addEventListener('load', () => {
+  const formBlock = document.querySelector('.contact-block');
+  const inputs = formBlock.querySelectorAll('.input-js');
   // svg drawing
   animateSvgFirstPage()
   // activate mousemove animation bg
@@ -97,15 +100,19 @@ window.addEventListener('load', () => {
 
   // links listener (activate page)
   document.body.addEventListener('click', (e) => {
+    // handle nav page link first page menu
     if (e.target.tagName === 'A' && e.target.classList.contains('nav-link') && !menuMain.classList.contains('sub-menu')) activatePage(e.target);
+    // handle nav page link sub page menu
     else if (e.target.tagName === 'A' && e.target.classList.contains('nav-link')){
       changeMenu(e.target);
 
+      // click projects link
       if(e.target.dataset.page === 'projects-page') {
         activateProgectsPage();
       }
     }
 
+    // handle Instagram link
     if (e.target.tagName === 'A' && e.target.classList.contains(socials.INSTAGRAM)) {
       if (window.innerWidth > 900) {
         e.preventDefault();
@@ -118,6 +125,16 @@ window.addEventListener('load', () => {
         window.open(e.target.href, '', `scrollbars=1,height=${windowHeight},width=${windowWidth},left=${leftWindowMargin},top=${topWindowMargin}`);
       } 
     }
+
+    // handle contact form link
+    if (e.target.tagName === 'A' && e.target.classList.contains(socials.FORM)) {
+      const sideline = formBlock.querySelector('.side-line__text');
+      
+      if (!formBlock.classList.contains('active')) sideline.innerHTML = '<span>Закрыть</span>';
+      else sideline.innerHTML = '<span>Написать мне</span><span>Мне</span>';
+
+      formBlock.classList.toggle('active');
+    }
   });
 
   // animate slide move in-out
@@ -129,6 +146,17 @@ window.addEventListener('load', () => {
   sldeDownBtn.addEventListener('click', (e) => {
     switchSlide('DOWN');
   });
+
+  // animate slide move in-out
+  inputs.forEach(input => {
+    input.addEventListener('blur', togglePlaceholder);
+  })
+
+  function togglePlaceholder(e) {
+    const input = e.target;
+      if (input.value == '') input.nextElementSibling.classList.remove('active');
+      else input.nextElementSibling.classList.add('active');
+  }
 });
 
   function menuSecondSlideIn() {
@@ -479,6 +507,16 @@ function projectPageActivateContent(targetLink) {
 function activateFirstPage() { 
   var menuStartIn = anime.timeline();
     menuStartIn
+    .add({
+      targets: '.author-block',
+      opacity: '1',
+      duration: 0,
+    })
+    .add({
+      targets: '.skills-block',
+      opacity: '1',
+      duration: 0,
+    })
     .add({
         targets: '.decor-bg-block > div', // bg decor elem
         duration: 2000,

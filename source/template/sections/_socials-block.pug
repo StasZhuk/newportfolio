@@ -29,5 +29,9 @@
     ul.socials__list
         each item, href in socials
             li(style="transform: scale(0);opacity:0" class=`socials__item socials__item-${i++}`)
-                a(href= item.href class=`socials__link ${item.svg}` target="_blank")
-                    +icon(item.svg, 'socials-icon')
+                if item.svg === 'email'
+                    a(href= item.href class=`socials__link ${item.svg} toggle-form` target="_blank")
+                        +icon(item.svg, 'socials-icon')
+                else
+                    a(href= item.href class=`socials__link ${item.svg}` target="_blank")
+                        +icon(item.svg, 'socials-icon')
